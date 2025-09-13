@@ -1,0 +1,26 @@
+{
+    "name": "RingBuffer",
+    "version": "0.1.0",
+    "description": "Simple Ring Buffer library",
+    "keywords": [
+        "Buffer",
+        "RingBuffer",
+        "filter"
+    ],
+    "authors": [
+        {
+            "name": "Francesco Simonetti",
+            "maintainer": true,
+            "url": "https://github.com/kkfranco98"
+        }
+    ],
+    "license": "MIT",
+    "frameworks": [
+        "arduino"
+    ],
+    "platforms": "*",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kkfranco98/RingBuffer"
+    }
+}
