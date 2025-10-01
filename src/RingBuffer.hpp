@@ -22,9 +22,14 @@ public:
     size_t size() const;
     constexpr size_t capacity() const;
 
-    T at(size_t i) const;
-    T newest_element() const;
-    T oldest_element() const;
+    T &at(size_t i);
+    const T &at(size_t i) const;
+
+    T &newest_element();
+    const T &newest_element() const;
+
+    T &oldest_element();
+    const T &oldest_element() const;
 
     class iterator
     {

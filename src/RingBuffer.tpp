@@ -32,31 +32,77 @@ size_t Ring_Buffer<T, N>::size() const { return _computed_elements; }
 template <typename T, size_t N>
 constexpr size_t Ring_Buffer<T, N>::capacity() const { return N; }
 
+//! ----------------- access by index -----------------
 template <typename T, size_t N>
-T Ring_Buffer<T, N>::at(size_t i) const
+T &Ring_Buffer<T, N>::at(size_t i)
 {
     if (i >= _computed_elements)
-        return {};
+    {
+        // puoi anche lanciare un errore o assert
+        static T dummy{};
+        return dummy;
+    }
     return _buffer[(first_index() + i) % N];
 }
 
 template <typename T, size_t N>
-T Ring_Buffer<T, N>::newest_element() const
+const T &Ring_Buffer<T, N>::at(size_t i) const
+{
+    if (i >= _computed_elements)
+    {
+        static const T dummy{};
+        return dummy;
+    }
+    return _buffer[(first_index() + i) % N];
+}
+
+//! ----------------- access to newest -----------------
+template <typename T, size_t N>
+T &Ring_Buffer<T, N>::newest_element()
 {
     if (_computed_elements == 0)
-        return {};
+    {
+        static T dummy{};
+        return dummy;
+    }
     return _buffer[(_index + N - 1) % N];
 }
 
 template <typename T, size_t N>
-T Ring_Buffer<T, N>::oldest_element() const
+const T &Ring_Buffer<T, N>::newest_element() const
 {
     if (_computed_elements == 0)
-        return {};
+    {
+        static const T dummy{};
+        return dummy;
+    }
+    return _buffer[(_index + N - 1) % N];
+}
+
+//! ----------------- access to oldest -----------------
+template <typename T, size_t N>
+T &Ring_Buffer<T, N>::oldest_element()
+{
+    if (_computed_elements == 0)
+    {
+        static T dummy{};
+        return dummy;
+    }
     return _buffer[first_index()];
 }
 
-// ---------- Iteratori ----------
+template <typename T, size_t N>
+const T &Ring_Buffer<T, N>::oldest_element() const
+{
+    if (_computed_elements == 0)
+    {
+        static const T dummy{};
+        return dummy;
+    }
+    return _buffer[first_index()];
+}
+
+//! ---------- Iterator ----------
 template <typename T, size_t N>
 Ring_Buffer<T, N>::iterator::iterator(T *_data, size_t _start, size_t _count, size_t _pos)
     : _data(_data), _start(_start), _count(_count), _pos(_pos) {}
