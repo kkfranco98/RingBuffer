@@ -1,10 +1,18 @@
 #pragma once
 
+#if defined(ARDUINO)
 #include <Arduino.h>
+#else
+#include <cstddef>
+#endif
+
+#include <cassert>
 
 template <typename T, size_t N>
 class Ring_Buffer
 {
+    static_assert(N > 0, "Ring_Buffer capacity N must be > 0");
+
 private:
     T _buffer[N];
     size_t _index;
